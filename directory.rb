@@ -18,15 +18,18 @@ def print_header
  puts "-------------"
 end
 
-def print students
-  students.each_with_index {|student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"}
+def print students, letter
+  students.each_with_index {|student, index|
+puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if students[index][:name][0] == letter}
 end
 
 def print_footer names
 puts "Overall, we have #{names.count} great students"
 end
 
+
+
 students = input_students
 print_header
-print students
+print students, 'A'
 print_footer students
