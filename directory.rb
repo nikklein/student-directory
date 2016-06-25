@@ -1,12 +1,17 @@
 def input_students
 puts "Please enter the name of a student and a cohort.\nTo finish, just hit return twice."
 # Country of Birth == COB
+
+=begin
 students = [
 {name: "Dr.Hannibal Lecter", cohort: :november, hobby: "Humans eating",  COB: 'USA', height: '1.80',t_shirt_size: 'M'},
 {name: "Darth Vader", cohort: :december, hobby: "Piloting a TIE", COB: 'Galaxy', height: '1.85',t_shirt_size: 'L'},
 {name: "Nurse Ratched",cohort: :januar, hobby: "Acting like a tyrant", COB: 'USA', height: '1.65',t_shirt_size: 'M'},
 {name: "Michael Corleone",cohort: :november, hobby: "Traveling to Sicily", COB: 'USA', height: '1.75',t_shirt_size: 'S'},
   ]
+=end
+
+students = []
 
 name = gets.chomp
 puts "..and a cohort please"
@@ -15,7 +20,7 @@ cohort = gets.chomp
 while !name.empty? do
   cohort = :november if cohort.empty?
   students << {name: name, cohort: cohort.downcase.to_sym, hobby: nil, COB: nil, height: nil, t_shirt_size: nil}
-  puts "Now we have #{students.count} students "
+  students.size > 1 ? (puts "Now we have #{students.count} students") : (puts "Now we have #{students.count} student")
   puts"Please enter a student's name or return twice to exit"
   name = gets.chomp
 puts "..and a cohort please"
@@ -40,7 +45,13 @@ end
 
 def print_footer names
 puts
+if names.size > 1
 puts "Overall, we have #{names.count} great students"
+elsif names.size == 1
+puts "Overall, we have 1 great student"
+else
+puts "We have no students"
+end
 end
 
 
