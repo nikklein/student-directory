@@ -1,5 +1,6 @@
 def input_students
 puts "Please enter the name of a student and a cohort.\nTo finish, just hit return twice."
+
 # Country of Birth == COB
 
 =begin
@@ -13,9 +14,9 @@ students = [
 
 students = []
 
-name = gets.chomp
+name = gets.strip
 puts "..and a cohort please"
-cohort = gets.chomp
+cohort = gets.sub("\n", "")
 
 while !name.empty? do
   cohort = :november if cohort.empty?
