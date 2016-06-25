@@ -22,16 +22,19 @@ while !name.empty? do
   cohort = :november if cohort.empty?
   students << {name: name, cohort: cohort.downcase.to_sym, hobby: nil, COB: nil, height: nil, t_shirt_size: nil}
   students.size > 1 ? (puts "Now we have #{students.count} students") : (puts "Now we have #{students.count} student")
-  puts"Please enter a student's name or return twice to exit"
+  puts "Please enter a student's name or return twice to exit"
   name = gets.chomp
 puts "..and a cohort please"
 cohort = gets.chomp
   end
   students
+
   end
 
-def print_header
- puts "The students of Villains Academy".center(50)
+
+def print_header students
+exit if students.empty?
+puts "The students of Villains Academy".center(50)
  puts "-------------".center(50)
 end
 
@@ -86,10 +89,9 @@ puts "Please enter a #{key_choose.to_s} correctly"
 change_info = gets.chomp.to_s
 students[stud_number.to_i - 1].map{|k,v| key_choose == :cohort ? students[stud_number.to_i - 1][key_choose] = change_info.to_sym : students[stud_number.to_i - 1][key_choose] = change_info}
 
-print_header
+print_header students
 print students
 print_footer students
-puts
 typo students
 end
 
@@ -108,8 +110,8 @@ end
 end
 
 students = input_students
-print_header
-print_by_cohort students
-#print students
+print_header students
+#print_by_cohort students
+print students
 print_footer students
-#typo students
+typo students
