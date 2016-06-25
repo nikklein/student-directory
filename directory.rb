@@ -1,5 +1,5 @@
 def input_students
-puts "Please enter the name of the student and a cohort.\nTo finish, just hit return twice."
+puts "Please enter the name of a student and a cohort.\nTo finish, just hit return twice."
 # Country of Birth == COB
 students = [
 {name: "Dr. Hannibal Lecter", cohort: :november, hobby: "Humans eating",  COB: 'USA', height: '1.80',t_shirt_size: 'M'},
@@ -14,11 +14,11 @@ cohort = gets.chomp
 
 while !name.empty? do
   cohort = :november if cohort.empty?
-  students << {name: name, cohort: cohort.downcase.to_sym}
+  students << {name: name, cohort: cohort.downcase.to_sym, hobby: nil, COB: nil, height: nil, t_shirt_size: nil}
   puts "Now we have #{students.count} students "
-  puts"Please enter student's name or return twice to exit"
+  puts"Please enter a student's name or return twice to exit"
   name = gets.chomp
-puts "..and cohort please"
+puts "..and a cohort please"
 cohort = gets.chomp
   end
   students
@@ -43,6 +43,7 @@ puts
 puts "Overall, we have #{names.count} great students"
 end
 
+
 def typo students
 puts
 puts "If you made a typo you could fix it now, to do that please enter 'yes', otherwise enter 'no':"
@@ -54,9 +55,9 @@ end
 
 exit if overwrite == "no"
 
-puts "Please enter a number from numbered list of the students above:"
+puts "Please enter a number from the numbered list of the students above:"
 stud_number = gets.chomp.to_s
-until stud_number.to_i <= students.size and stud_number.to_i  > 0 do
+until stud_number.to_i <= students.size and stud_number.to_i > 0 do
 puts "Please enter a number not equal to '0' and less than #{students.size}: "
   stud_number = gets.chomp.to_s
 end
@@ -69,10 +70,10 @@ puts "Please enter one of these words: 'name', 'cohort', 'hobby', 'COB', 'height
 key_choose = gets.chomp.to_s.to_sym
 end
 exit if key_choose == :exit
-puts "Please enter correct info"
+puts "Please enter a #{key_choose.to_s} correctly"
 change_info = gets.chomp.to_s
-students[stud_number.to_i - 1].map{|k,v| students[stud_number.to_i - 1][key_choose] = change_info.to_sym } if key_choose == :cohort
-students[stud_number.to_i - 1][key_choose].to_s.replace(change_info)
+students[stud_number.to_i - 1].map{|k,v| key_choose == :cohort ? students[stud_number.to_i - 1][key_choose] = change_info.to_sym : students[stud_number.to_i - 1][key_choose] = change_info}
+
 print_header
 print students
 print_footer students
