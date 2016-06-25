@@ -10,6 +10,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -25,11 +26,22 @@ when "1"
   input_students
 when "2"
 show_students
+when "3"
+  save_students
 when "9"
   exit
 else
   puts "I don't know what you meant, try again"
   end
+end
+
+def save_students
+  file = File.open("students.csv", "w")
+  @students.each{|student|
+  student_data = [student[:name], student[:cohort]]
+file_line = student_data.join(",")
+file.puts file_line}
+file.close
 end
 
 
@@ -61,7 +73,7 @@ end
 def print
 count = 0
 while count < @students.size do
- puts "#{count + 1}. #{@students[count][:name]} (#{@students[count][:cohort]} cohort) hobby: #{@students[count][:hobby]}
+ puts "#{count + 1}. #{@students[count][:name]} (#{@students[count][:cohort].capitalize} cohort) hobby: #{@students[count][:hobby]}
 country of birth: #{@students[count][:COB]}  height: #{@students[count][:height]} T-shirt size: #{@students[count][:t_shirt_size]}"
 count += 1
 end
@@ -132,8 +144,8 @@ end
 
 interactive_menu
 #students = input_students
-print_header
+#print_header
 #print_by_cohort
-print #students
-print_footer
-#typo students
+#print
+#print_footer
+#typo
