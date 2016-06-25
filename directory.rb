@@ -81,14 +81,14 @@ puts
 typo students
 end
 
-def print_by_cohorts students#, cohort
+def print_by_cohort students, cohort
 cohort = cohort.to_s.downcase.to_sym
-students.sort_by{|k,v| k[:cohort]}.each{|c| puts "#{c[:name]} - #{c[:cohort]} cohort".center(50)}# if students[i][:cohort] == cohort}
+students.sort_by{|k,v| k[:cohort]}.each{|c| puts "#{c[:name]} - #{c[:cohort]} cohort".center(50) if c[:cohort] == cohort}
 end
 
 students = input_students
 print_header
-print_by_cohorts students#, 'december'
+print_by_cohort students, 'december'
 #print students
 print_footer students
 #typo students
