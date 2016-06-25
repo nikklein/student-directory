@@ -2,9 +2,9 @@ def input_students
 puts "Please enter the name of a student and a cohort.\nTo finish, just hit return twice."
 # Country of Birth == COB
 students = [
-{name: "Dr. Hannibal Lecter", cohort: :november, hobby: "Humans eating",  COB: 'USA', height: '1.80',t_shirt_size: 'M'},
-{name: "Darth Vader", cohort: :november, hobby: "Piloting a TIE", COB: 'Galaxy', height: '1.85',t_shirt_size: 'L'},
-{name: "Nurse Ratched",cohort: :november, hobby: "Acting like a tyrant", COB: 'USA', height: '1.65',t_shirt_size: 'M'},
+{name: "Dr.Hannibal Lecter", cohort: :november, hobby: "Humans eating",  COB: 'USA', height: '1.80',t_shirt_size: 'M'},
+{name: "Darth Vader", cohort: :december, hobby: "Piloting a TIE", COB: 'Galaxy', height: '1.85',t_shirt_size: 'L'},
+{name: "Nurse Ratched",cohort: :januar, hobby: "Acting like a tyrant", COB: 'USA', height: '1.65',t_shirt_size: 'M'},
 {name: "Michael Corleone",cohort: :november, hobby: "Traveling to Sicily", COB: 'USA', height: '1.75',t_shirt_size: 'S'},
   ]
 
@@ -81,9 +81,14 @@ puts
 typo students
 end
 
+def print_by_cohorts students#, cohort
+cohort = cohort.to_s.downcase.to_sym
+students.sort_by{|k,v| k[:cohort]}.each{|c| puts "#{c[:name]} - #{c[:cohort]} cohort".center(50)}# if students[i][:cohort] == cohort}
+end
 
 students = input_students
 print_header
-print students
+print_by_cohorts students#, 'december'
+#print students
 print_footer students
-typo students
+#typo students
