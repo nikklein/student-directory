@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = []
 
 def interactive_menu
@@ -54,23 +56,25 @@ save_students filename
 end
 end
 
+
 def save_students filename
-File.open(filename, "w") do |f|
+CSV.open(filename, 'w') do |row|
 @students.each{|student|
 student_data = [student[:name], student[:cohort]]
-file_line = student_data.join(",")
-f.puts file_line}
+row << student_data
+}
 end
 puts "Your data has been successfully saved"
 puts
 end
 
+
 def load_students filename
-  File.open(filename, "r") do |f|
-  f.readlines.each{|line|
-  name, cohort = line.chomp.split(",")
-  add_to_list name, cohort}
+  CSV.foreach(File.path(filename)) do |row|
+  name, cohort = row[0], row[1]
+  add_to_list name, cohort
 end
+
 puts "Your data has been successfully loaded"
 puts
 end
