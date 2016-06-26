@@ -16,6 +16,8 @@ def print_menu
   puts "9. Exit"
 end
 
+
+
 def show_students
   print_header
   print
@@ -30,8 +32,14 @@ when "2"
 show_students
 when "3"
   save_students
+  puts
+  puts "Your data has been successfully saved"
+  puts
 when "4"
   load_students
+  puts
+  puts "Your data has been successfully loaded from the file #{@filename}"
+  puts
 when "5"
   typo
 when "9"
@@ -42,12 +50,12 @@ else
 end
 
 def save_students
-  file = File.open("students.csv", "w")
-  @students.each{|student|
-  student_data = [student[:name], student[:cohort]]
+@file = File.open("students.csv", "w")
+@students.each{|student|
+student_data = [student[:name], student[:cohort]]
 file_line = student_data.join(",")
-file.puts file_line}
-file.close
+@file.puts file_line}
+@file.close
 end
 
 def load_students filename = "students.csv"
@@ -64,13 +72,13 @@ def add_to_list name, cohort
 end
 
 def try_load_students
-  filename = ARGV.first
-  filename = "new_students.csv" if filename.nil? # Load "new_students.csv" by default if no file was given at startup 
-  if File.exists? filename
-  load_students filename
-  puts "Loaded #{@students.count} from #{filename}"
+  @filename = ARGV.first
+  @filename = "new_students.csv" if @filename.nil? # Load "new_students.csv" by default if no file was given at startup
+  if File.exists? @filename
+  load_students @filename
+  puts "Loaded #{@students.count} from #{@filename}"
   else
-    puts "Sorry, #{filename} doesn't exist."
+    puts "Sorry, #{@filename} doesn't exist."
     exit
   end
 end
@@ -97,7 +105,7 @@ cohort = STDIN.gets.chomp
 def print_header
 exit if @students.nil?
 puts "The students of Villains Academy".center(50)
- puts "-------------".center(50)
+puts "-------------".center(50)
 end
 
 def print
@@ -125,7 +133,6 @@ end
 def typo
 puts
 puts "If you made a typo you could fix it now, to do that please enter 'yes', otherwise enter 'no':"
-
 overwrite = STDIN.gets.chomp.downcase.to_s
 
 until overwrite == 'yes' or overwrite == 'no' do
@@ -138,6 +145,7 @@ exit if overwrite == "no"
 print_header
 print
 print_footer
+
 puts "Please enter a number from the numbered list of the students above:"
 stud_number = STDIN.gets.chomp.to_s
 until stud_number.to_i <= @students.size and stud_number.to_i > 0 do
