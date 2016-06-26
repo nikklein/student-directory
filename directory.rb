@@ -199,6 +199,5 @@ end
 
 #try_load_students
 #interactive_menu
-#puts File.read("directory.rb")
-#File.read(_FILE_)
+
 puts File.read(__FILE__)
