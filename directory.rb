@@ -10,12 +10,11 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load the list"
   puts "5. Fix the typos"
   puts "9. Exit"
 end
-
 
 
 def show_students
@@ -24,6 +23,7 @@ def show_students
   print_footer
 end
 
+
 def process selection
   case selection
 when "1"
@@ -31,15 +31,9 @@ when "1"
 when "2"
 show_students
 when "3"
-  save_students
-  puts
-  puts "Your data has been successfully saved"
-  puts
+file_choice "save"
 when "4"
-  load_students
-  puts
-  puts "Your data has been successfully loaded from the file #{@filename}"
-  puts
+file_choice "load"
 when "5"
   typo
 when "9"
@@ -49,21 +43,34 @@ else
   end
 end
 
-def save_students
-@file = File.open("students.csv", "w")
+def file_choice choice
+puts "Please enter a filename"
+filename = STDIN.gets.chomp.to_s
+if choice == "load"
+load_students filename
+end
+if choice == "save"
+save_students filename
+end
+end
+
+def save_students filename
+@file = File.open(filename, "w")
 @students.each{|student|
 student_data = [student[:name], student[:cohort]]
 file_line = student_data.join(",")
 @file.puts file_line}
 @file.close
+puts "Your data has been successfully saved"
 end
 
-def load_students filename = "students.csv"
+def load_students filename
   file = File.open(filename, "r")
   file.readlines.each{|line|
   name, cohort = line.chomp.split(",")
   add_to_list name, cohort}
 file.close
+puts "Your data has been successfully loaded"
 
 end
 
@@ -73,7 +80,7 @@ end
 
 def try_load_students
   @filename = ARGV.first
-  @filename = "new_students.csv" if @filename.nil? # Load "new_students.csv" by default if no file was given at startup
+  @filename = "new_students.csv" if @filename.nil? #"new_students.csv"# Load "new_students.csv" by default if no file was given at startup
   if File.exists? @filename
   load_students @filename
   puts "Loaded #{@students.count} from #{@filename}"
