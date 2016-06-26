@@ -54,8 +54,13 @@ def load_students filename = "students.csv"
   file = File.open(filename, "r")
   file.readlines.each{|line|
   name, cohort = line.chomp.split(",")
-@students << {name: name, cohort: cohort.to_sym}}
+  add_to_list name, cohort}
 file.close
+
+end
+
+def add_to_list name, cohort
+@students << {name: name, cohort: cohort.downcase.to_sym, hobby: nil, COB: nil, height: nil, t_shirt_size: nil}
 end
 
 def try_load_students
@@ -79,7 +84,7 @@ cohort = STDIN.gets.chomp
 
 while !name.empty? do
   cohort = :november if cohort.empty?
-  @students << {name: name, cohort: cohort.downcase.to_sym, hobby: nil, COB: nil, height: nil, t_shirt_size: nil}
+  add_to_list name, cohort
   @students.size > 1 ? (puts "Now we have #{@students.count} students") : (puts "Now we have #{@students.count} student")
   puts "Please enter a student's name or return twice to exit"
   name = STDIN.gets.chomp
