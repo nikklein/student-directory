@@ -55,23 +55,24 @@ end
 end
 
 def save_students filename
-@file = File.open(filename, "w")
+File.open(filename, "w") do |f|
 @students.each{|student|
 student_data = [student[:name], student[:cohort]]
 file_line = student_data.join(",")
-@file.puts file_line}
-@file.close
+f.puts file_line}
+end
 puts "Your data has been successfully saved"
+puts
 end
 
 def load_students filename
-  file = File.open(filename, "r")
-  file.readlines.each{|line|
+  File.open(filename, "r") do |f|
+  f.readlines.each{|line|
   name, cohort = line.chomp.split(",")
   add_to_list name, cohort}
-file.close
+end
 puts "Your data has been successfully loaded"
-
+puts
 end
 
 def add_to_list name, cohort
